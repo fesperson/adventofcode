@@ -13,11 +13,8 @@ for row in arr:
 fresh_list = np.array([])
 my_ranges = []
 for r in ranges:
-    #print("range size", int(r[1]) - int(r[0]) )
     min = int(r[0])
     max = int(r[1])
-    # my_ranges.append(min, max)
-    #print(min,max)
     joined = False
     for i in range(len(my_ranges)):
         if min > my_ranges[i][0] and min < my_ranges[i][1] and max > my_ranges[i][1]:
