@@ -12,35 +12,24 @@ for row in arr:
 
 fresh_list = np.array([])
 my_ranges = []
-for r in ranges:
-    min = int(r[0])
-    max = int(r[1])
-    joined = False
-    for i in range(len(my_ranges)):
-        if min > my_ranges[i][0] and min < my_ranges[i][1] and max > my_ranges[i][1]:
-            my_ranges[i][1] = max
-            joined = True
+ranges = sorted(ranges, key=lambda x: int(x[0]) )
 
-        if min < my_ranges[i][0] and max > my_ranges[i][0] and max < my_ranges[i][1]:
-            my_ranges[i][0] = min  
-            joined = True
-    if not joined:
-        my_ranges.append([min,max])
+prev_n1 = int(ranges[0][0])
+prev_n2 = int(ranges[0][1])
 
-my_ranges = sorted(my_ranges, key=lambda x: x[0])
-for i in range(len(my_ranges) - 1):
-    if my_ranges[i][1] >= my_ranges[i+1][0]:
-        my_ranges[i][1] = my_ranges[i+1][1]
-        my_ranges[i+1][0] = my_ranges[i][0] 
-        my_ranges[i].append("delete")
+for r in range(1,len(ranges)):
+    n1 = int(ranges[r][0])
+    n2 = int(ranges[r][1])
+    
+    if prev_n2 <= n2 and prev_n2 >= n1:
+        prev_n2 = n2
+    if prev_n2 < n1:
+        my_ranges.append([prev_n1, prev_n2])
+        prev_n1 = n1
+        prev_n2 = n2
+my_ranges.append([prev_n1, prev_n2])
+
+total_ranges = 0
 for r in my_ranges:
-    print(r)
-
-
-total_fresh = 0
-for r in my_ranges:
-    if len(r) == 2:
-        total_fresh += r[1] - r[0] + 1
-
-print(total_fresh)
-
+    total_ranges += r[1]-r[0] + 1
+print(total_ranges)
