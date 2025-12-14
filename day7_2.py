@@ -9,7 +9,7 @@ beam_locs = np.full(len(grid[0]), ".", dtype=str)
 print(beam_locs)
 print(grid)
 splits = 0
-
+# I am not quite sure how to approach this one!
 
 for i, element in enumerate(grid[0]):
     if element == "S":
